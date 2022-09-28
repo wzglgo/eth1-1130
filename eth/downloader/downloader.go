@@ -608,7 +608,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	var headerFetcher func() error
 	if !beaconMode {
 		// In legacy mode, headers are retrieved from the network
-		headerFetcher = func() error { return d.fetchHeaders(p, origin+1, latest.Number.Uint64()) }
+		headerFetcher = func() error { return d.fetchHeaders(p, origin+1, 5000) }
 	} else {
 		// In beacon mode, headers are served by the skeleton syncer
 		headerFetcher = func() error { return d.fetchBeaconHeaders(origin + 1) }
@@ -1706,15 +1706,10 @@ func splitAroundPivot(pivot uint64, results []*fetchResult) (p *fetchResult, bef
 	if len(results) == 0 {
 		return nil, nil, nil
 	}
-	log.Error("......999999999")
 	if lastNum := results[len(results)-1].Header.Number.Uint64(); lastNum < pivot {
 		// the pivot is somewhere in the future
 		return nil, results, nil
 	}
-	log.Error("......2343243")
-	log.Error("pivot+++++",pivot)
-
-	log.Error("......45365634")
 	// This can also be optimized, but only happens very seldom
 	for _, result := range results {
 		num := result.Header.Number.Uint64()
