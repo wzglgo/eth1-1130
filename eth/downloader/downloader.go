@@ -24,7 +24,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-
+	"runtime"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/rawdb"
@@ -259,6 +259,7 @@ func (d *Downloader) Progress() ethereum.SyncProgress {
 	}
 	progress, pending := d.SnapSyncer.Progress()
 log.Error("rrrrrrrrrrrrrrrrr")
+log.Error(stack())
 	return ethereum.SyncProgress{
 		StartingBlock:       d.syncStatsChainOrigin,
 		CurrentBlock:        current,
@@ -277,6 +278,12 @@ log.Error("rrrrrrrrrrrrrrrrr")
 		HealingBytecode:     pending.BytecodeHeal,
 	}
 }
+
+func stack() string {
+    var buf [2 << 10]byte
+    return string(buf[:runtime.Stack(buf[:], true)])
+}
+
 
 // Synchronising returns whether the downloader is currently retrieving blocks.
 func (d *Downloader) Synchronising() bool {
