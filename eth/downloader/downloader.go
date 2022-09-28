@@ -1711,10 +1711,15 @@ func splitAroundPivot(pivot uint64, results []*fetchResult) (p *fetchResult, bef
 	if len(results) == 0 {
 		return nil, nil, nil
 	}
+	log.Error("......2343243")
+	log.Error(lastNum)
+	log.Error(pivot)
+
 	if lastNum := results[len(results)-1].Header.Number.Uint64(); lastNum < pivot {
 		// the pivot is somewhere in the future
 		return nil, results, nil
 	}
+	log.Error("......45365634")
 	// This can also be optimized, but only happens very seldom
 	for _, result := range results {
 		num := result.Header.Number.Uint64()
@@ -1727,8 +1732,6 @@ func splitAroundPivot(pivot uint64, results []*fetchResult) (p *fetchResult, bef
 			after = append(after, result)
 		}
 	}
-	if after >= 5000
-		after = 5000
 	return p, before, after
 }
 
