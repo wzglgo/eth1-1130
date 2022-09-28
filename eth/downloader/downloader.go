@@ -522,6 +522,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
 	height := latest.Number.Uint64()
+	height = 5000
 	fmt.Println("*****-----",pivot.Number.Uint64())
 	fmt.Println("/////////////---",height)
 	log.Error("rrrrrrrrrrrrrrrrr")
