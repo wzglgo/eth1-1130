@@ -538,7 +538,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 log.Error("hhhhh*************")
 log.Error("%d",height)
 log.Error("syncStatsChainOrigin**************")
-log.Error("%d",syncStatsChainOrigin)
+log.Error("%d",d.syncStatsChainOrigin)
 	// Ensure our origin point is below any snap sync pivot point
 	if mode == SnapSync {
 		if height <= uint64(fsMinFullBlocks) {
