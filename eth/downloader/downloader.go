@@ -606,8 +606,9 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		d.syncInitHook(origin, height)
 	}
 	log.Info("*-*-*-*-*-*-*-*-*-*-")
-	fmt.Printf(origin)
-	fmt.Printf(latest.Number.Uint64())
+	fmt.Printf(, uint64(num))
+	fmt.Printf("%d",origin)
+	fmt.Printf("%d",latest.Number.Uint64())
 	var headerFetcher func() error
 	if !beaconMode {
 		// In legacy mode, headers are retrieved from the network
