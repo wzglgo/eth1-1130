@@ -1712,8 +1712,8 @@ func splitAroundPivot(pivot uint64, results []*fetchResult) (p *fetchResult, bef
 		return nil, nil, nil
 	}
 	log.Error("......2343243")
-	log.Error(lastNum)
-	log.Error(pivot)
+	log.Error("lastNum+++",lastNum)
+	log.Error("pivot+++++",pivot)
 
 	if lastNum := results[len(results)-1].Header.Number.Uint64(); lastNum < pivot {
 		// the pivot is somewhere in the future
