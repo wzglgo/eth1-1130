@@ -508,7 +508,6 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		}		
 
 	}		
-	log.Error("*****",pivot.Number.Uint64())
 
 	// If no pivot block was returned, the head is below the min full block
 	// threshold (i.e. new chain). In that case we won't really snap sync
@@ -518,6 +517,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
 	height := latest.Number.Uint64()
+	log.Error("*****",pivot.Number.Uint64())
+	log.Error("//////////",height)
 
 	var origin uint64
 	if !beaconMode {
