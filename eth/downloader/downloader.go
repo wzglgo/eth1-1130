@@ -525,7 +525,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	height = 5000
 	fmt.Println("*****-----",pivot.Number.Uint64())
 	fmt.Println("/////////////---",height)
-	log.Error("rrrrrrrrrrrrrrrrr")
+	log.Error("rrrrrrrrr11111rrrrrrrr")
 	log.Error(stack())
 	var origin uint64
 	if !beaconMode {
