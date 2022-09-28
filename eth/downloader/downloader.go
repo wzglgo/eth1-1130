@@ -258,7 +258,7 @@ func (d *Downloader) Progress() ethereum.SyncProgress {
 		log.Error("Unknown downloader chain/mode combo", "light", d.lightchain != nil, "full", d.blockchain != nil, "mode", mode)
 	}
 	progress, pending := d.SnapSyncer.Progress()
-
+log.Error("rrrrrrrrrrrrrrrrr")
 	return ethereum.SyncProgress{
 		StartingBlock:       d.syncStatsChainOrigin,
 		CurrentBlock:        current,
