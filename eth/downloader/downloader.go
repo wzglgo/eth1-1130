@@ -258,8 +258,6 @@ func (d *Downloader) Progress() ethereum.SyncProgress {
 		log.Error("Unknown downloader chain/mode combo", "light", d.lightchain != nil, "full", d.blockchain != nil, "mode", mode)
 	}
 	progress, pending := d.SnapSyncer.Progress()
-log.Error("rrrrrrrrrrrrrrrrr")
-log.Error(stack())
 	return ethereum.SyncProgress{
 		StartingBlock:       d.syncStatsChainOrigin,
 		CurrentBlock:        current,
@@ -526,7 +524,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	height := latest.Number.Uint64()
 	fmt.Println("*****-----",pivot.Number.Uint64())
 	fmt.Println("/////////////---",height)
-
+	log.Error("rrrrrrrrrrrrrrrrr")
+	log.Error(stack())
 	var origin uint64
 	if !beaconMode {
 		// In legacy mode, reach out to the network and find the ancestor
