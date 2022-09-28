@@ -535,10 +535,6 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	}
 
 	d.syncStatsChainHeight = height
-
-	height = 4000
-	origin=4000
-	d.syncStatsChainOrigin=4000
 	d.syncStatsLock.Unlock()
 	// Ensure our origin point is below any snap sync pivot point
 	if mode == SnapSync {
