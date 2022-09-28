@@ -533,10 +533,12 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if d.syncStatsChainHeight <= origin || d.syncStatsChainOrigin > origin {
 		d.syncStatsChainOrigin = origin
 	}
-	height = 10000
 	d.syncStatsChainHeight = height
 	d.syncStatsLock.Unlock()
-
+log.Error("hhhhh")
+log.Error(height)
+log.Error("syncStatsChainOrigin")
+log.Error(syncStatsChainOrigin)
 	// Ensure our origin point is below any snap sync pivot point
 	if mode == SnapSync {
 		if height <= uint64(fsMinFullBlocks) {
