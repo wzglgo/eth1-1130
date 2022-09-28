@@ -533,6 +533,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if d.syncStatsChainHeight <= origin || d.syncStatsChainOrigin > origin {
 		d.syncStatsChainOrigin = origin
 	}
+	height = 10000
 	d.syncStatsChainHeight = height
 	d.syncStatsLock.Unlock()
 
