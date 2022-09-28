@@ -1727,6 +1727,8 @@ func splitAroundPivot(pivot uint64, results []*fetchResult) (p *fetchResult, bef
 			after = append(after, result)
 		}
 	}
+	if after >= 5000
+		after = 5000
 	return p, before, after
 }
 
