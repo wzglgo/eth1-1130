@@ -1210,7 +1210,7 @@ func (bc *BlockChain) InsertReceiptChain(blockChain types.Blocks, receiptChain [
 		context = append(context, []interface{}{"ignored", stats.ignored}...)
 	}
 	log.Info("Imported new block receipts", context...)
-	log.Info(stack())
+	
 	return 0, nil
 }
 
