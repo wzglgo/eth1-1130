@@ -262,7 +262,7 @@ func (d *Downloader) Progress() ethereum.SyncProgress {
 	return ethereum.SyncProgress{
 		StartingBlock:       d.syncStatsChainOrigin,
 		CurrentBlock:        current,
-		HighestBlock:        d.syncStatsChainHeight,
+		HighestBlock:        10000,//d.syncStatsChainHeight,
 		SyncedAccounts:      progress.AccountSynced,
 		SyncedAccountBytes:  uint64(progress.AccountBytes),
 		SyncedBytecodes:     progress.BytecodeSynced,
