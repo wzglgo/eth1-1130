@@ -517,8 +517,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
 	height := latest.Number.Uint64()
-	log.Error("*****",pivot.Number.Uint64())
-	log.Error("//////////",height)
+	fmt.Println("*****-----",pivot.Number.Uint64())
+	fmt.Println("/////////////---",height)
 
 	var origin uint64
 	if !beaconMode {
