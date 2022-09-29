@@ -605,11 +605,15 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		// In beacon mode, headers are served by the skeleton syncer
 		headerFetcher = func() error { return d.fetchBeaconHeaders(origin + 1) }
 	}
+	fmt.Printf("*****************aaa")
 	fetchers := []func() error{
 		headerFetcher, // Headers are always retrieved
 		func() error { return d.fetchBodies(origin+1, beaconMode) },   // Bodies are retrieved during normal and snap sync
 		func() error { return d.fetchReceipts(origin+1, beaconMode) }, // Receipts are retrieved during snap sync
-		func() error { return d.processHeaders(origin+1, td, ttd, beaconMode) },
+		func() error {
+			fmt.Printf("*****************bbbbbbbbb")
+		 return d.processHeaders(origin+1, td, ttd, beaconMode) 
+		},
 	}
 	if mode == SnapSync {
 		d.pivotLock.Lock()
@@ -1338,9 +1342,11 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 			}
 			// Otherwise split the chunk of headers into batches and process them
 			headers, hashes := task.headers, task.hashes
-
+			fmt.Printf("!!!!!!!!!!!!!w %d",len(headers))
 			gotHeaders = true
 			for len(headers) > 0 {
+
+				fmt.Printf("!!!!!!!!!!!!!l %d",len(headers))
 				// Terminate if something failed in between processing chunks
 				select {
 				case <-d.cancelCh:
