@@ -24,7 +24,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-	"runtime"
+
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/rawdb"
@@ -245,22 +245,23 @@ func (d *Downloader) Progress() ethereum.SyncProgress {
 	d.syncStatsLock.RLock()
 	defer d.syncStatsLock.RUnlock()
 
-	//current := uint64(0)
+	current := uint64(0)
 	mode := d.getMode()
 	switch {
 	case d.blockchain != nil && mode == FullSync:
-	//	current = d.blockchain.CurrentBlock().NumberU64()
+		current = d.blockchain.CurrentBlock().NumberU64()
 	case d.blockchain != nil && mode == SnapSync:
-	//	current = d.blockchain.CurrentFastBlock().NumberU64()
+		current = d.blockchain.CurrentFastBlock().NumberU64()
 	case d.lightchain != nil:
-	//	current = d.lightchain.CurrentHeader().Number.Uint64()
+		current = d.lightchain.CurrentHeader().Number.Uint64()
 	default:
 		log.Error("Unknown downloader chain/mode combo", "light", d.lightchain != nil, "full", d.blockchain != nil, "mode", mode)
 	}
 	progress, pending := d.SnapSyncer.Progress()
+
 	return ethereum.SyncProgress{
 		StartingBlock:       d.syncStatsChainOrigin,
-		CurrentBlock:        uint64(99999),
+		CurrentBlock:        current,
 		HighestBlock:        d.syncStatsChainHeight,
 		SyncedAccounts:      progress.AccountSynced,
 		SyncedAccountBytes:  uint64(progress.AccountBytes),
@@ -276,12 +277,6 @@ func (d *Downloader) Progress() ethereum.SyncProgress {
 		HealingBytecode:     pending.BytecodeHeal,
 	}
 }
-
-func stack() string {
-    var buf [2 << 10]byte
-    return string(buf[:runtime.Stack(buf[:], true)])
-}
-
 
 // Synchronising returns whether the downloader is currently retrieving blocks.
 func (d *Downloader) Synchronising() bool {
@@ -392,7 +387,7 @@ func (d *Downloader) synchronise(id string, hash common.Hash, td, ttd *big.Int, 
 
 	// Post a user notification of the sync (only once per session)
 	if atomic.CompareAndSwapInt32(&d.notified, 0, 1) {
-		log.Info("Block synchronisation started111")
+		log.Info("Block synchronisation started")
 	}
 	if mode == SnapSync {
 		// Snap sync uses the snapshot namespace to store potentially flakey data until
@@ -474,7 +469,6 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 
 	// Look up the sync boundaries: the common ancestor and the target block
 	var latest, pivot *types.Header
-
 	if !beaconMode {
 		// In legacy mode, use the master peer to retrieve the headers from
 		latest, pivot, err = d.fetchHead(p)
@@ -510,10 +504,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 				log.Error("Pivot header is not found", "number", number)
 				return errNoPivotHeader
 			}
-		}		
-
-	}		
-
+		}
+	}
 	// If no pivot block was returned, the head is below the min full block
 	// threshold (i.e. new chain). In that case we won't really snap sync
 	// anyway, but still need a valid pivot block to avoid some code hitting
@@ -521,8 +513,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if mode == SnapSync && pivot == nil {
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
-
 	height := latest.Number.Uint64()
+
 	var origin uint64
 	if !beaconMode {
 		// In legacy mode, reach out to the network and find the ancestor
@@ -634,8 +626,6 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 // spawnSync runs d.process and all given fetcher functions to completion in
 // separate goroutines, returning the first error that appears.
 func (d *Downloader) spawnSync(fetchers []func() error) error {
-	
-	fmt.Printf("!!!!!!!!!!!spawnSync")
 	errc := make(chan error, len(fetchers))
 	d.cancelWg.Add(len(fetchers))
 	for _, fn := range fetchers {
