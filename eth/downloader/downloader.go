@@ -1277,7 +1277,6 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				"block", fmt.Sprintf("%d->%d", lastBlock, curBlock), "reason", rollbackErr)
 		}
 	}()
-	//fmt.Printf("processHeaders!!!!!!!!!!!!!!")
 	// Wait for batches of headers to process
 	gotHeaders := false
 
