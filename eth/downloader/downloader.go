@@ -1286,7 +1286,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 
 	for {
 		fmt.Printf("!!!!!!zlygsxhdqssch:%d\n",d.syncStatsChainHeight)
-		d.syncStatsChainHeight.SetInt64(5000)
+		d.syncStatsChainHeight= 5000
 		select {
 		case <-d.cancelCh:
 			rollbackErr = errCanceled
