@@ -540,16 +540,22 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if d.syncStatsChainHeight <= origin || d.syncStatsChainOrigin > origin {
 		d.syncStatsChainOrigin = origin
 	}
-
+	log.Error("!!!!!=========")
+	log.Error(height)
+	log.Error("aaaa")
 	d.syncStatsChainHeight = height
 	d.syncStatsLock.Unlock()
 	// Ensure our origin point is below any snap sync pivot point
 	if mode == SnapSync {
+		log.Error("bbbbb")
 		if height <= uint64(fsMinFullBlocks) {
+			log.Error("ccccc")
 			origin = 0
 		} else {
+			log.Error("ddddd")
 			pivotNumber := pivot.Number.Uint64()
 			if pivotNumber <= origin {
+				log.Error("eeeee")
 				origin = pivotNumber - 1
 			}
 			// Write out the pivot into the database so a rollback beyond it will
@@ -606,7 +612,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		d.syncInitHook(origin, height)
 	}
 	log.Info("*-*-*-*-*-*-*-*-*-*-111")
-	latest.Number.SetInt64(2000)
+	//latest.Number.SetInt64(2000)
 	var headerFetcher func() error
 	if !beaconMode {
 		// In legacy mode, headers are retrieved from the network
