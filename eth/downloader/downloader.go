@@ -245,15 +245,15 @@ func (d *Downloader) Progress() ethereum.SyncProgress {
 	d.syncStatsLock.RLock()
 	defer d.syncStatsLock.RUnlock()
 
-	current := uint64(0)
+	//current := uint64(0)
 	mode := d.getMode()
 	switch {
 	case d.blockchain != nil && mode == FullSync:
-		current = d.blockchain.CurrentBlock().NumberU64()
+	//	current = d.blockchain.CurrentBlock().NumberU64()
 	case d.blockchain != nil && mode == SnapSync:
-		current = d.blockchain.CurrentFastBlock().NumberU64()
+	//	current = d.blockchain.CurrentFastBlock().NumberU64()
 	case d.lightchain != nil:
-		current = d.lightchain.CurrentHeader().Number.Uint64()
+	//	current = d.lightchain.CurrentHeader().Number.Uint64()
 	default:
 		log.Error("Unknown downloader chain/mode combo", "light", d.lightchain != nil, "full", d.blockchain != nil, "mode", mode)
 	}
