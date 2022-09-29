@@ -521,6 +521,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if mode == SnapSync && pivot == nil {
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
+
+	//latest.Number.SetInt64(2000)
 	height := latest.Number.Uint64()
 	var origin uint64
 	if !beaconMode {
@@ -540,7 +542,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if d.syncStatsChainHeight <= origin || d.syncStatsChainOrigin > origin {
 		d.syncStatsChainOrigin = origin
 	}
-	log.Error("!!!!!=========")
+	log.Error("!!!!!=========2")
 	fmt.Printf("%d",height)
 	log.Error("aaaa")
 	d.syncStatsChainHeight = height
@@ -611,8 +613,6 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if d.syncInitHook != nil {
 		d.syncInitHook(origin, height)
 	}
-	log.Info("*-*-*-*-*-*-*-*-*-*-111")
-	//latest.Number.SetInt64(2000)
 	var headerFetcher func() error
 	if !beaconMode {
 		// In legacy mode, headers are retrieved from the network
