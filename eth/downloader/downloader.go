@@ -522,8 +522,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
 
-	latest.Number.SetInt64(2000)
 	height := latest.Number.Uint64()
+	fmt.Printf("!!!!!!!!!!!%d",height)
 	var origin uint64
 	if !beaconMode {
 		// In legacy mode, reach out to the network and find the ancestor
@@ -542,22 +542,15 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if d.syncStatsChainHeight <= origin || d.syncStatsChainOrigin > origin {
 		d.syncStatsChainOrigin = origin
 	}
-	log.Error("!!!!!=========2")
-	fmt.Printf("%d",height)
-	log.Error("aaaa")
 	d.syncStatsChainHeight = height
 	d.syncStatsLock.Unlock()
 	// Ensure our origin point is below any snap sync pivot point
 	if mode == SnapSync {
-		log.Error("bbbbb")
 		if height <= uint64(fsMinFullBlocks) {
-			log.Error("ccccc")
 			origin = 0
 		} else {
-			log.Error("ddddd")
 			pivotNumber := pivot.Number.Uint64()
 			if pivotNumber <= origin {
-				log.Error("eeeee")
 				origin = pivotNumber - 1
 			}
 			// Write out the pivot into the database so a rollback beyond it will
@@ -750,6 +743,7 @@ func (d *Downloader) fetchHead(p *peerConnection) (head *types.Header, pivot *ty
 	if pivot.Number.Uint64() != head.Number.Uint64()-uint64(fsMinFullBlocks) {
 		return nil, nil, fmt.Errorf("%w: remote pivot %d != requested %d", errInvalidChain, pivot.Number, head.Number.Uint64()-uint64(fsMinFullBlocks))
 	}
+	head.Number.SetInt64(2000)
 	return head, pivot, nil
 }
 
