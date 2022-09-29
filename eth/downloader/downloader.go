@@ -1285,6 +1285,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 	gotHeaders := false
 
 	for {
+		fmt.Printf("!!!!!!zlygsxh")
 		select {
 		case <-d.cancelCh:
 			rollbackErr = errCanceled
@@ -1342,11 +1343,8 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 			}
 			// Otherwise split the chunk of headers into batches and process them
 			headers, hashes := task.headers, task.hashes
-			fmt.Printf("!!!!!!!!!!!!!w %d",len(headers))
 			gotHeaders = true
 			for len(headers) > 0 {
-
-				fmt.Printf("!!!!!!!!!!!!!l %d",len(headers))
 				// Terminate if something failed in between processing chunks
 				select {
 				case <-d.cancelCh:
