@@ -541,7 +541,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		d.syncStatsChainOrigin = origin
 	}
 	log.Error("!!!!!=========")
-	log.Error(height)
+	log.Printf("%d",height)
 	log.Error("aaaa")
 	d.syncStatsChainHeight = height
 	d.syncStatsLock.Unlock()
