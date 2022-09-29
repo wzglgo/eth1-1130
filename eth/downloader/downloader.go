@@ -523,7 +523,6 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	}
 
 	height := latest.Number.Uint64()
-	fmt.Printf("!!!!!!!!!!!%d",height)
 	var origin uint64
 	if !beaconMode {
 		// In legacy mode, reach out to the network and find the ancestor
@@ -635,6 +634,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 // spawnSync runs d.process and all given fetcher functions to completion in
 // separate goroutines, returning the first error that appears.
 func (d *Downloader) spawnSync(fetchers []func() error) error {
+	
+	fmt.Printf("!!!!!!!!!!!spawnSync")
 	errc := make(chan error, len(fetchers))
 	d.cancelWg.Add(len(fetchers))
 	for _, fn := range fetchers {
@@ -743,7 +744,6 @@ func (d *Downloader) fetchHead(p *peerConnection) (head *types.Header, pivot *ty
 	if pivot.Number.Uint64() != head.Number.Uint64()-uint64(fsMinFullBlocks) {
 		return nil, nil, fmt.Errorf("%w: remote pivot %d != requested %d", errInvalidChain, pivot.Number, head.Number.Uint64()-uint64(fsMinFullBlocks))
 	}
-	head.Number.SetInt64(300000)
 	return head, pivot, nil
 }
 
