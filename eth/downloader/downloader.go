@@ -1344,7 +1344,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 			headers, hashes := task.headers, task.hashes
 			gotHeaders = true
 			for len(headers) > 0 {
-				fmt.Printf("!!!!!!!!!flof")
+				fmt.Printf("!!!!!!!!!001flof")
 				// Terminate if something failed in between processing chunks
 				select {
 				case <-d.cancelCh:
