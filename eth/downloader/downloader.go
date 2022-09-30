@@ -1365,7 +1365,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 
 			gotHeaders = true
 			for len(headers) > 0 {
-				fmt.Printf("!!!!!!!!!001flof***%d\n",len(headers))
+				fmt.Printf("!!!!!!!!!处理接受的数据===%d\n",len(headers))
 				// Terminate if something failed in between processing chunks
 				select {
 				case <-d.cancelCh:
@@ -1377,7 +1377,8 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				limit := maxHeadersProcess
 				if limit > len(headers) {
 					limit = len(headers)
-				}
+				}				
+				fmt.Printf("!!!!!!!!!limit值===%d\n",limit)
 				chunkHeaders := headers[:limit]
 				chunkHashes := hashes[:limit]
 
