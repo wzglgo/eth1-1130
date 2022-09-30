@@ -990,7 +990,7 @@ func (d *Downloader) findAncestorBinarySearch(p *peerConnection, mode SyncMode, 
 func (d *Downloader) fetchHeaders(p *peerConnection, from uint64, head uint64) error {
 	p.log.Debug("Directing header downloads", "origin", from)
 	defer p.log.Debug("Header download terminated")
-
+	fmt.Printf("!!!!!!!fetchHeaders")
 	// Start pulling the header chain skeleton until all is done
 	var (
 		skeleton = true  // Skeleton assembly phase or finishing up
