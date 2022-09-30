@@ -1304,8 +1304,9 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 					}
 				}
 				if cut_index > 0{
+					fmt.Printf("!!!!!!!!!截断前%d\n",len(task.headers))			
 					task.headers = task.headers[:cut_index]	
-					fmt.Printf("!!!!!!!!!截断了%d\n",len(task.headers))			
+					fmt.Printf("!!!!!!!!!截断后%d\n",len(task.headers))			
 				}
 			}
 			// Terminate header processing if we synced up
