@@ -1459,11 +1459,11 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 						return fmt.Errorf("%w: stale headers", errBadPeer)
 					}
 				}
-				fmt.Printf("!!!!!!!!!flof--before-end %d\n",len(headers))
+				//fmt.Printf("!!!!!!!!!flof--before-end %d\n",len(headers))
 				headers = headers[limit:]
 				hashes = hashes[limit:]
 				origin += uint64(limit)
-				fmt.Printf("!!!!!!!!!flof---end %d\n",len(headers))
+				//fmt.Printf("!!!!!!!!!flof---end %d\n",len(headers))
 			}
 			// Update the highest block number we know if a higher one is found.
 			//fmt.Printf("!!!!!!!内部最大高度%d--",origin)
