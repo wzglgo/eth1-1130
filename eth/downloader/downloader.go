@@ -1295,6 +1295,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 		case task := <-d.headerProcCh:
 			// Terminate header processing if we synced up
 			if task == nil || len(task.headers) == 0 {
+				fmt.Printf("!!!!!!!!这次没有拿到数据task为nil||zero\n")
 				// Notify everyone that headers are fully processed
 				for _, ch := range []chan bool{d.queue.blockWakeCh, d.queue.receiptWakeCh} {
 					select {
@@ -1343,6 +1344,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				return nil
 			}
 			// Otherwise split the chunk of headers into batches and process them
+			fmt.Printf("在这里截断headers里大于2000的数据\n")
 			headers, hashes := task.headers, task.hashes
 			gotHeaders = true
 			for len(headers) > 0 {
