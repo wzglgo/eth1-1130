@@ -1283,7 +1283,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 	gotHeaders := false
 
 	for {
-		fmt.Printf("!!!!!!zlygsxhdqssch:%d\n",d.syncStatsChainHeight)
+		fmt.Printf("!!!!!!:%d\n",d.syncStatsChainHeight)
 		d.syncStatsChainHeight= 5000
 		select {
 		case <-d.cancelCh:
@@ -1344,7 +1344,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 			headers, hashes := task.headers, task.hashes
 			gotHeaders = true
 			for len(headers) > 0 {
-				fmt.Printf("!!!!!!!!!001flof\n")
+				fmt.Printf("!!!!!!!!!001flof***%d\n",len(headers))
 				// Terminate if something failed in between processing chunks
 				select {
 				case <-d.cancelCh:
@@ -1457,7 +1457,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				headers = headers[limit:]
 				hashes = hashes[limit:]
 				origin += uint64(limit)
-				fmt.Printf("!!!!!!!!!001flof---end\n")
+				fmt.Printf("!!!!!!!!!001flof---end %d\n",len(headers))
 			}
 			// Update the highest block number we know if a higher one is found.
 			d.syncStatsLock.Lock()
