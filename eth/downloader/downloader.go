@@ -1483,11 +1483,11 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				//fmt.Printf("!!!!!!!!!flof---end %d\n",len(headers))
 			}
 			// Update the highest block number we know if a higher one is found.
-			fmt.Printf("!!!!!!!最大高度%d--%d",d.syncStatsChainHeight,origin)
 			d.syncStatsLock.Lock()
 			if d.syncStatsChainHeight < origin {
 				d.syncStatsChainHeight = origin - 1
 			}
+			fmt.Printf("!!!!!!!最大高度%d--%d",d.syncStatsChainHeight)
 			d.syncStatsLock.Unlock()
 
 			// Signal the content downloaders of the availability of new tasks
