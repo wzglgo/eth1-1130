@@ -1183,6 +1183,7 @@ func (d *Downloader) fetchHeaders(p *peerConnection, from uint64, head uint64) e
 		}
 		// Insert any remaining new headers and fetch the next batch
 		if len(headers) > 0 {
+			p.log.Info("!!!!!!!!headers获取111数据\n")
 			p.log.Trace("Scheduling new headers", "count", len(headers), "from", from)
 			select {
 			case d.headerProcCh <- &headerTask{
