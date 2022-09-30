@@ -1299,7 +1299,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				task = nil
 			}else{
 				for i, header := range task.headers {
-					if header.Number > 2000 {
+					if header.Number.Uint64() > 2000 {
 						cut_index = i
 						break
 					}
