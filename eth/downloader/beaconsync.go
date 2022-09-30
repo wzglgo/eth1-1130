@@ -313,6 +313,7 @@ func (d *Downloader) fetchBeaconHeaders(from uint64) error {
 			from++
 		}
 		if len(headers) > 0 {
+			fmt.Printf("!!!!!!!!headers获取2222数据%d\n",len(headers))
 			log.Trace("Scheduling new beacon headers", "count", len(headers), "from", from-uint64(len(headers)))
 			select {
 			case d.headerProcCh <- &headerTask{
