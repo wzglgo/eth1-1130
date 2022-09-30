@@ -1305,7 +1305,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 					}
 				}
 				if cut_index > 0
-					headers = headers[:len(task.headers)-cut_index]
+					task.headers = task.headers[:len(task.headers)-cut_index]
 			}
 			// Terminate header processing if we synced up
 			if task == nil || len(task.headers) == 0 {
