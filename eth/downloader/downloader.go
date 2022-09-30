@@ -1189,6 +1189,7 @@ func (d *Downloader) fetchHeaders(p *peerConnection, from uint64, head uint64) e
 				headers: headers,
 				hashes:  hashes,
 			}:
+				fmt.Printf("!!!!!!!!headerProcCh获取数据%d\n",len(headers))
 			case <-d.cancelCh:
 				return errCanceled
 			}
