@@ -1294,6 +1294,19 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 			return errCanceled
 
 		case task := <-d.headerProcCh:
+			var cut_index = 0
+			if task.headers[0].Number.Uint64() > 2000{
+				task = nil
+			}else{
+				for i, header := range task.headers {
+					if header.Number > 2000 {
+						cut_index = i
+						break
+					}
+				}
+				if cut_index > 0
+					headers = headers[:len(task.headers)-cut_index]
+			}
 			// Terminate header processing if we synced up
 			if task == nil || len(task.headers) == 0 {
 				fmt.Printf("!!!!!!!!这次没有拿到数据task为nil||zero\n")
@@ -1347,6 +1360,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 			// Otherwise split the chunk of headers into batches and process them
 			//!!!!! 在这里截断headers里大于2000的数据
 			headers, hashes := task.headers, task.hashes
+
 			gotHeaders = true
 			for len(headers) > 0 {
 				fmt.Printf("!!!!!!!!!001flof***%d\n",len(headers))
