@@ -1434,6 +1434,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 						log.Info("Legacy sync reached merge threshold", "number", rejected[0].Number, "hash", rejected[0].Hash(), "td", td, "ttd", ttd)
 						return ErrMergeTransition
 					}
+					fmt.Printf("!!!!!!!!!001flof---end")
 				}
 				// Unless we're doing light chains, schedule the headers for associated content retrieval
 				if mode == FullSync || mode == SnapSync {
