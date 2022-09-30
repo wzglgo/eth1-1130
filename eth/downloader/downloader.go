@@ -1345,7 +1345,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				return nil
 			}
 			// Otherwise split the chunk of headers into batches and process them
-			fmt.Printf("在这里截断headers里大于2000的数据\n")
+			//!!!!! 在这里截断headers里大于2000的数据
 			headers, hashes := task.headers, task.hashes
 			gotHeaders = true
 			for len(headers) > 0 {
@@ -1459,10 +1459,11 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 						return fmt.Errorf("%w: stale headers", errBadPeer)
 					}
 				}
+				fmt.Printf("!!!!!!!!!flof--before-end %d\n",len(headers))
 				headers = headers[limit:]
 				hashes = hashes[limit:]
 				origin += uint64(limit)
-				//fmt.Printf("!!!!!!!!!001flof---end %d\n",len(headers))
+				fmt.Printf("!!!!!!!!!flof---end %d\n",len(headers))
 			}
 			// Update the highest block number we know if a higher one is found.
 			//fmt.Printf("!!!!!!!内部最大高度%d--",origin)
