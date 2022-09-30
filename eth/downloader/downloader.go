@@ -990,7 +990,7 @@ func (d *Downloader) findAncestorBinarySearch(p *peerConnection, mode SyncMode, 
 func (d *Downloader) fetchHeaders(p *peerConnection, from uint64, head uint64) error {
 	p.log.Debug("Directing header downloads", "origin", from)
 	defer p.log.Debug("Header download terminated")
-	fmt.Printf("!!!!!!!fetchHeaders %d***%d",from,head)
+	fmt.Printf("!!!!!!!fetchHeaders %d***%d\n",from,head)
 	// Start pulling the header chain skeleton until all is done
 	var (
 		skeleton = true  // Skeleton assembly phase or finishing up
@@ -1457,7 +1457,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				headers = headers[limit:]
 				hashes = hashes[limit:]
 				origin += uint64(limit)
-				fmt.Printf("!!!!!!!!!001flof---end %d\n",len(headers))
+				//fmt.Printf("!!!!!!!!!001flof---end %d\n",len(headers))
 			}
 			// Update the highest block number we know if a higher one is found.
 			fmt.Printf("!!!!!!!内部最大高度%d--",origin)
