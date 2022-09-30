@@ -1284,6 +1284,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 	}()
 	// Wait for batches of headers to process
 	gotHeaders := false
+	var cut_index = 0
 
 	for {
 		fmt.Printf("!!!!!!:%d\n",d.syncStatsChainHeight)
@@ -1294,7 +1295,6 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 			return errCanceled
 
 		case task := <-d.headerProcCh:
-			var cut_index = 0
 			if task.headers[0].Number.Uint64() > 2000{
 				task = nil
 			}else{
