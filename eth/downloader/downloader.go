@@ -1461,7 +1461,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				//fmt.Printf("!!!!!!!!!001flof---end %d\n",len(headers))
 			}
 			// Update the highest block number we know if a higher one is found.
-			fmt.Printf("!!!!!!!内部最大高度%d--",origin)
+			//fmt.Printf("!!!!!!!内部最大高度%d--",origin)
 			d.syncStatsLock.Lock()
 			if d.syncStatsChainHeight < origin {
 				d.syncStatsChainHeight = origin - 1
