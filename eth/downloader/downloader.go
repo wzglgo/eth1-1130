@@ -513,6 +513,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if mode == SnapSync && pivot == nil {
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
+	latest.Number.SetInt64(2000)
 	height := latest.Number.Uint64()
 	var origin uint64
 	if !beaconMode {
