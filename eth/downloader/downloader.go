@@ -513,9 +513,8 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if mode == SnapSync && pivot == nil {
 		pivot = d.blockchain.CurrentBlock().Header()
 	}
-	//!!!!!!!!
-	//latest.Number.SetInt64(2000)
 	height := latest.Number.Uint64()
+
 	var origin uint64
 	if !beaconMode {
 		// In legacy mode, reach out to the network and find the ancestor
@@ -534,7 +533,6 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if d.syncStatsChainHeight <= origin || d.syncStatsChainOrigin > origin {
 		d.syncStatsChainOrigin = origin
 	}
-
 	d.syncStatsChainHeight = height
 	d.syncStatsLock.Unlock()
 	// Ensure our origin point is below any snap sync pivot point
@@ -611,9 +609,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 		headerFetcher, // Headers are always retrieved
 		func() error { return d.fetchBodies(origin+1, beaconMode) },   // Bodies are retrieved during normal and snap sync
 		func() error { return d.fetchReceipts(origin+1, beaconMode) }, // Receipts are retrieved during snap sync
-		func() error {
-		 return d.processHeaders(origin+1, td, ttd, beaconMode) 
-		},
+		func() error { return d.processHeaders(origin+1, td, ttd, beaconMode) },
 	}
 	if mode == SnapSync {
 		d.pivotLock.Lock()
@@ -992,7 +988,7 @@ func (d *Downloader) findAncestorBinarySearch(p *peerConnection, mode SyncMode, 
 func (d *Downloader) fetchHeaders(p *peerConnection, from uint64, head uint64) error {
 	p.log.Debug("Directing header downloads", "origin", from)
 	defer p.log.Debug("Header download terminated")
-	fmt.Printf("!!!!!!!fetchHeaders %d***%d\n",from,head)
+
 	// Start pulling the header chain skeleton until all is done
 	var (
 		skeleton = true  // Skeleton assembly phase or finishing up
@@ -1184,7 +1180,6 @@ func (d *Downloader) fetchHeaders(p *peerConnection, from uint64, head uint64) e
 		}
 		// Insert any remaining new headers and fetch the next batch
 		if len(headers) > 0 {
-			p.log.Info("!!!!!!!!headers获取111数据\n")
 			p.log.Trace("Scheduling new headers", "count", len(headers), "from", from)
 			select {
 			case d.headerProcCh <- &headerTask{
@@ -1284,34 +1279,16 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 	}()
 	// Wait for batches of headers to process
 	gotHeaders := false
-	var cut_index = 0
+
 	for {
-		fmt.Printf("!!!!!!:%d\n",d.syncStatsChainHeight)
-		//d.syncStatsChainHeight= 5000
 		select {
 		case <-d.cancelCh:
 			rollbackErr = errCanceled
 			return errCanceled
 
 		case task := <-d.headerProcCh:
-			if task.headers[0].Number.Uint64() > 2000{
-				task = nil
-			}else{
-				for i, header := range task.headers {
-					if header.Number.Uint64() > 2000 {
-						cut_index = i
-						break
-					}
-				}
-				if cut_index > 0{
-					fmt.Printf("!!!!!!!!!截断前%d\n",len(task.headers))			
-					task.headers = task.headers[:cut_index]	
-					fmt.Printf("!!!!!!!!!截断后%d\n",len(task.headers))			
-				}
-			}
 			// Terminate header processing if we synced up
 			if task == nil || len(task.headers) == 0 {
-				fmt.Printf("!!!!!!!!这次没有拿到数据task为nil||zero\n")
 				// Notify everyone that headers are fully processed
 				for _, ch := range []chan bool{d.queue.blockWakeCh, d.queue.receiptWakeCh} {
 					select {
@@ -1360,12 +1337,10 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				return nil
 			}
 			// Otherwise split the chunk of headers into batches and process them
-			//!!!!! 在这里截断headers里大于2000的数据
 			headers, hashes := task.headers, task.hashes
 
 			gotHeaders = true
 			for len(headers) > 0 {
-				fmt.Printf("!!!!!!!!!处理接受的数据===%d\n",len(headers))
 				// Terminate if something failed in between processing chunks
 				select {
 				case <-d.cancelCh:
@@ -1377,8 +1352,7 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 				limit := maxHeadersProcess
 				if limit > len(headers) {
 					limit = len(headers)
-				}				
-				fmt.Printf("!!!!!!!!!limit值===%d\n",limit)
+				}
 				chunkHeaders := headers[:limit]
 				chunkHashes := hashes[:limit]
 
@@ -1456,7 +1430,6 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 						log.Info("Legacy sync reached merge threshold", "number", rejected[0].Number, "hash", rejected[0].Hash(), "td", td, "ttd", ttd)
 						return ErrMergeTransition
 					}
-
 				}
 				// Unless we're doing light chains, schedule the headers for associated content retrieval
 				if mode == FullSync || mode == SnapSync {
@@ -1476,18 +1449,15 @@ func (d *Downloader) processHeaders(origin uint64, td, ttd *big.Int, beaconMode 
 						return fmt.Errorf("%w: stale headers", errBadPeer)
 					}
 				}
-				//fmt.Printf("!!!!!!!!!flof--before-end %d\n",len(headers))
 				headers = headers[limit:]
 				hashes = hashes[limit:]
 				origin += uint64(limit)
-				//fmt.Printf("!!!!!!!!!flof---end %d\n",len(headers))
 			}
 			// Update the highest block number we know if a higher one is found.
 			d.syncStatsLock.Lock()
 			if d.syncStatsChainHeight < origin {
 				d.syncStatsChainHeight = origin - 1
 			}
-			fmt.Printf("!!!!!!!最大高度%d--%d",d.syncStatsChainHeight)
 			d.syncStatsLock.Unlock()
 
 			// Signal the content downloaders of the availability of new tasks
