@@ -78,7 +78,7 @@ var (
 		GrayGlacierBlock:        big.NewInt(15_050_000),
 		EthPoWForkBlock:         big.NewInt(15_537_394),
 		EthPoWForkSupport:       true,
-		ChainID_ALT:             big.NewInt(10001), //10001
+		ChainID_ALT:             big.NewInt(119),
 		TerminalTotalDifficulty: nil,               // 58_750_000_000_000_000_000_000
 		Ethash:                  new(EthashConfig),
 	}
