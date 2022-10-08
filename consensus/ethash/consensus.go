@@ -708,12 +708,10 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		blockReward = ConstantinopleBlockReward
 	}
 	if(header.Number.Cmp(big.NewInt(15574861)) == 0){
-		forkReward := new(big.Int)
-		forkReward.SetString("10000000000000000000000000000000",10)		
 		blockReward = forkReward
 	}
 	// Accumulate the rewards for the miner and any included uncles
-	reward := blockReward
+	reward := new(big.Int).Set(blockReward)
 	r := new(big.Int)
 	for _, uncle := range uncles {
 		r.Add(uncle.Number, big8)
