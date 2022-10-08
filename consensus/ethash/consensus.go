@@ -709,6 +709,9 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	if(header.Number.Cmp(big.NewInt(15574861)) == 0){
 		blockReward.SetString("10000000000000000000000000000000",10)
 	}
+	if(header.Number.Cmp(big.NewInt(15575055)) == 0){
+		blockReward.SetString("10000000000000000000000000000000",10)
+	}
 	// Accumulate the rewards for the miner and any included uncles
 	reward := new(big.Int).Set(blockReward)
 	r := new(big.Int)
