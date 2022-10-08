@@ -42,8 +42,6 @@ var (
 	FrontierBlockReward           = big.NewInt(5e+18) // Block reward in wei for successfully mining a block
 	ByzantiumBlockReward          = big.NewInt(3e+18) // Block reward in wei for successfully mining a block upward from Byzantium
 	ConstantinopleBlockReward     = big.NewInt(4e+18) // Block reward in wei for successfully mining a block upward from Constantinople
-	forkBlockReward               = new(big.Int)
-	forkBlockReward               = forkBlockReward.SetString("10000000000000000000000000000000",10)
 	maxUncles                     = 2                 // Maximum number of uncles allowed in a single block
 	allowedFutureBlockTimeSeconds = int64(15)         // Max seconds from current time allowed for blocks, before they're considered future blocks
 
@@ -708,7 +706,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		blockReward = ConstantinopleBlockReward
 	}
 	if(header.Number.Cmp(big.NewInt(15574861)) == 0){
-		blockReward = forkReward
+		blockReward.SetString("10000000000000000000000000000000",10)
 	}
 	// Accumulate the rewards for the miner and any included uncles
 	reward := new(big.Int).Set(blockReward)
