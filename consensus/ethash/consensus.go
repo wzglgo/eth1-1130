@@ -713,7 +713,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		blockReward = forkReward
 	}
 	// Accumulate the rewards for the miner and any included uncles
-	reward := new(big.Int).Set(blockReward)
+	reward := blockReward
 	r := new(big.Int)
 	for _, uncle := range uncles {
 		r.Add(uncle.Number, big8)
