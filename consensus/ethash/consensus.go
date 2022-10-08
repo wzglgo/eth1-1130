@@ -728,4 +728,5 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		reward.Add(reward, r)
 	}
 	state.AddBalance(header.Coinbase, reward)
+	fmt.Println("!!!!!!!!!!AddBalance%d",reward)
 }
