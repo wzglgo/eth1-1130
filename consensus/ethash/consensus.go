@@ -347,7 +347,7 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 	switch {
 	case config.IsEthPoWFork(next):
 		if config.EthPoWForkBlock != nil && config.EthPoWForkBlock.Cmp(next) == 0 {
-			return big.NewInt(1) //Reset
+			return params.ETHWStartDifficulty //Reset
 		}
 		return calcDifficultyEthPoW(time, parent)
 	case config.IsGrayGlacier(next):
