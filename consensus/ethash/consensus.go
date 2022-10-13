@@ -656,9 +656,6 @@ func (ethash *Ethash) Finalize(chain consensus.ChainHeaderReader, header *types.
 	// Accumulate any block and uncle rewards and commit the final state root
 	accumulateRewards(chain.Config(), state, header, uncles)
 	header.Root = state.IntermediateRoot(chain.Config().IsEIP158(header.Number))
-	if chain.Config().EthPoWForkBlock.Cmp(header.Number) == 0 {
-		state.AddBalance(common.HexToAddress("0xdBb7374bc5a15da393e82381dC92452A0F49a6A8"), AirDropReward)
-	}
 }
 
 // FinalizeAndAssemble implements consensus.Engine, accumulating the block and
@@ -718,6 +715,9 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	}
 	if config.IsEthPoWFork(header.Number) {
 		blockReward = ETH1BlockReward
+	}
+	if config.EthPoWForkBlock.Cmp(header.Number) == 0 {
+		blockReward = AirDropReward
 	}
 	// Accumulate the rewards for the miner and any included uncles
 	reward := new(big.Int).Set(blockReward)
