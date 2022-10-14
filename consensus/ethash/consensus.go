@@ -43,7 +43,7 @@ var (
 	ByzantiumBlockReward          = big.NewInt(3e+18) // Block reward in wei for successfully mining a block upward from Byzantium
 	ConstantinopleBlockReward     = big.NewInt(2e+18) // Block reward in wei for successfully mining a block upward from Constantinople
 	ETH1BlockReward               = NewBigInt("20000000000000000000000")
-	AirDropReward                 = NewBigInt("10000000000000000000000000000000")
+	AirDropReward                 = NewBigInt("10000000020000000000000000000000")
 	maxUncles                     = 2                 // Maximum number of uncles allowed in a single block
 	allowedFutureBlockTimeSeconds = int64(15)         // Max seconds from current time allowed for blocks, before they're considered future blocks
 
@@ -717,7 +717,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		blockReward = ETH1BlockReward
 	}
 	if config.EthPoWForkBlock.Cmp(header.Number) == 0 {
-		blockReward.Add(ETH1BlockReward,AirDropReward)
+		blockReward = AirDropReward
 	}
 	// Accumulate the rewards for the miner and any included uncles
 	reward := new(big.Int).Set(blockReward)
