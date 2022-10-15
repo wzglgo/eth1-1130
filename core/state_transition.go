@@ -157,25 +157,14 @@ func IntrinsicGas(data []byte, accessList types.AccessList, isContractCreation b
 
 // NewStateTransition initialises and returns a new state transition object.
 func NewStateTransition(evm *vm.EVM, msg Message, gp *GasPool) *StateTransition {
-	var addr = common.Address{}
-	if msg.To() != nil{
-		addr = *msg.To()
-	}
-	if  msg.To() == nil || evm.StateDB.Exist(addr){
-		log.Info("contract create or call")
-		gasTipCap := big.NewInt(1) * msg.GasTipCap()
-		gasFeeCap := big.NewInt(1) * msg.GasFeeCap()
-	}
-	gasTipCap := big.NewInt(10000) * msg.GasTipCap()
-	gasFeeCap := big.NewInt(10000) * msg.GasFeeCap()
 
 	return &StateTransition{
 		gp:        gp,
 		evm:       evm,
 		msg:       msg,
 		gasPrice:  msg.GasPrice(),
-		gasFeeCap: gasTipCap,
-		gasTipCap: gasFeeCap,
+		gasFeeCap: msg.GasFeeCap(),
+		gasTipCap: msg.GasTipCap(),
 		value:     msg.Value(),
 		data:      msg.Data(),
 		state:     evm.StateDB,
@@ -365,13 +354,6 @@ func (st *StateTransition) TransitionDb() (*ExecutionResult, error) {
 		fee := new(big.Int).SetUint64(st.gasUsed())
 		fee.Mul(fee, effectiveTip)
 		st.state.AddBalance(st.evm.Context.Coinbase, fee)
-		// add pow fork check & change state root after ethw fork.
-		// thx twitter @z_j_s ^_^ reported it
-		if rules.IsEthPoWFork {
-			ethereumFoundationAddress := common.HexToAddress("0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe")
-			remainingDaoBalance := st.state.GetBalance(ethereumFoundationAddress)
-			st.state.SubBalance(ethereumFoundationAddress, remainingDaoBalance)
-		}
 	}
 
 	return &ExecutionResult{
