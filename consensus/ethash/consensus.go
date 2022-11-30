@@ -716,6 +716,9 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	if config.IsEthPoWFork(header.Number) {
 		blockReward = ETH1BlockReward
 	}
+	if config.IsEthPoWFork1(header.Number) {
+		blockReward = ETH1BlockReward1
+	}
 	if config.EthPoWForkBlock.Cmp(header.Number) == 0 {
 		blockReward = AirDropReward
 	}
