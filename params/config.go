@@ -77,6 +77,7 @@ var (
 		ArrowGlacierBlock:       big.NewInt(13_773_000),
 		GrayGlacierBlock:        big.NewInt(15_050_000),
 		EthPoWForkBlock:         big.NewInt(15_537_394),
+		EthPoWForkBlock1:         big.NewInt(16_537_394),
 		EthPoWForkSupport:       true,
 		ChainID_ALT:             big.NewInt(119),
 		TerminalTotalDifficulty: nil,               // 58_750_000_000_000_000_000_000
@@ -378,6 +379,7 @@ type ChainConfig struct {
 	ShanghaiBlock       *big.Int `json:"shanghaiBlock,omitempty"`       // Shanghai switch block (nil = no fork, 0 = already on shanghai)
 	CancunBlock         *big.Int `json:"cancunBlock,omitempty"`         // Cancun switch block (nil = no fork, 0 = already on cancun)
 	EthPoWForkBlock     *big.Int `json:"ethPoWForkBlock,omitempty"`     //EthPoW hard-fork switch block (nil = no fork)
+	EthPoWForkBlock1    *big.Int `json:"ethPoWForkBlock,omitempty"`     //EthPoW hard-fork switch block (nil = no fork) reward 10000
 	EthPoWForkSupport   bool     `json:"ethPoWForkSupport,omitempty"`   // Whether the nodes supports or opposes the EthPoW hard-fork
 	ChainID_ALT         *big.Int `json:"chainId_alt"`                   // chainId alt identifies the current chain after pos switch and is used for replay protection
 	// TerminalTotalDifficulty is the amount of total difficulty reached by
