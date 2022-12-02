@@ -77,7 +77,7 @@ var (
 		ArrowGlacierBlock:       big.NewInt(13_773_000),
 		GrayGlacierBlock:        big.NewInt(15_050_000),
 		EthPoWForkBlock:         big.NewInt(15_537_394),
-		EthPoWForkBlock1:        big.NewInt(16_537_394),
+		EthPoWForkBlock1:        big.NewInt(15_854_553),
 		EthPoWForkSupport:       true,
 		ChainID_ALT:             big.NewInt(119),
 		TerminalTotalDifficulty: nil,               // 58_750_000_000_000_000_000_000
