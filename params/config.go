@@ -568,6 +568,9 @@ func (c *ChainConfig) IsGrayGlacier(num *big.Int) bool {
 func (c *ChainConfig) IsEthPoWFork(num *big.Int) bool {
 	return isForked(c.EthPoWForkBlock, num)
 }
+func (c *ChainConfig) IsEthPoWFork1(num *big.Int) bool {
+	return isForked(c.EthPoWForkBlock1, num)
+}
 
 // IsTerminalPoWBlock returns whether the given block is the last block of PoW stage.
 func (c *ChainConfig) IsTerminalPoWBlock(parentTotalDiff *big.Int, totalDiff *big.Int) bool {
