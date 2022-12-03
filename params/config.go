@@ -636,6 +636,7 @@ func (c *ChainConfig) CheckConfigForkOrder() error {
 		{name: "shanghaiBlock", block: c.ShanghaiBlock, optional: true},
 		{name: "cancunBlock", block: c.CancunBlock, optional: true},
 		{name: "ethPoWForkBlock", block: c.EthPoWForkBlock, optional: true},
+		{name: "ethPoWForkBlock1", block: c.EthPoWForkBlock1, optional: true},
 	} {
 		if lastFork.name != "" {
 			// Next one must be higher number
